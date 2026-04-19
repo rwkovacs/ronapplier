@@ -30,7 +30,7 @@
       coverEl.textContent = payload.coverLetter || "(empty)";
       emailEl.textContent = payload.outreachEmail || "(empty)";
       output.hidden = false;
-      lastDraft = { ...data };
+      lastDraft = { ...data, ...payload };
       logBtn.disabled = false;
       setStatus("Draft ready. Review before sending.", "ok");
     } catch (err) {
@@ -66,18 +66,33 @@
   });
 
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-copy]");
-    if (!btn) return;
-    const el = document.getElementById(btn.dataset.copy);
-    if (!el) return;
-    navigator.clipboard.writeText(el.textContent).then(
-      () => {
-        const prev = btn.textContent;
-        btn.textContent = "Copied";
-        setTimeout(() => (btn.textContent = prev), 1200);
-      },
-      () => setStatus("Copy failed", "err"),
-    );
+    const copyBtn = e.target.closest("[data-copy]");
+    if (copyBtn) {
+      const selector = copyBtn.dataset.copy;
+      const el = selector.startsWith("#")
+        ? document.querySelector(selector)
+        : document.getElementById(selector);
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent).then(
+        () => {
+          const prev = copyBtn.textContent;
+          copyBtn.textContent = "Copied";
+          setTimeout(() => (copyBtn.textContent = prev), 1200);
+        },
+        () => setStatus("Copy failed", "err"),
+      );
+      return;
+    }
+
+    const toggle = e.target.closest("[data-toggle]");
+    if (toggle) {
+      const panel = document.getElementById(toggle.dataset.toggle);
+      if (!panel) return;
+      const hidden = panel.hasAttribute("hidden");
+      if (hidden) panel.removeAttribute("hidden");
+      else panel.setAttribute("hidden", "");
+      toggle.textContent = hidden ? "Hide" : "View drafts";
+    }
   });
 
   function setStatus(msg, kind) {
@@ -93,20 +108,52 @@
         return;
       }
       appList.innerHTML = apps
-        .map(
-          (a) => `
+        .map((a) => {
+          const panelId = `panel-${a.id}`;
+          const hasDrafts = a.coverLetter || a.outreachEmail;
+          return `
           <div class="app-item">
-            <div>
+            <div style="flex: 1; min-width: 0;">
               <div><strong>${escapeHtml(a.company)}</strong> — ${escapeHtml(a.role)}</div>
               <div class="app-meta">
+                ${a.location ? escapeHtml(a.location) + " · " : ""}
                 ${a.hiringManager ? "Manager: " + escapeHtml(a.hiringManager) + " · " : ""}
                 ${a.jobUrl ? `<a href="${escapeAttr(a.jobUrl)}" target="_blank" rel="noopener">Posting</a> · ` : ""}
                 ${escapeHtml(new Date(a.createdAt).toLocaleString())}
+                ${hasDrafts ? ` · <button class="link-btn" data-toggle="${panelId}">View drafts</button>` : ""}
               </div>
+              ${
+                hasDrafts
+                  ? `<div id="${panelId}" class="draft-panel" hidden>
+                  ${
+                    a.coverLetter
+                      ? `<div class="card" style="margin-top: 10px;">
+                          <h3>Cover letter</h3>
+                          <pre id="cl-${a.id}">${escapeHtml(a.coverLetter)}</pre>
+                          <div class="card-actions">
+                            <button class="btn btn-secondary" data-copy="cl-${a.id}">Copy</button>
+                          </div>
+                        </div>`
+                      : ""
+                  }
+                  ${
+                    a.outreachEmail
+                      ? `<div class="card" style="margin-top: 10px;">
+                          <h3>Outreach email</h3>
+                          <pre id="oe-${a.id}">${escapeHtml(a.outreachEmail)}</pre>
+                          <div class="card-actions">
+                            <button class="btn btn-secondary" data-copy="oe-${a.id}">Copy</button>
+                          </div>
+                        </div>`
+                      : ""
+                  }
+                </div>`
+                  : ""
+              }
             </div>
             <div class="app-meta">${escapeHtml(a.status)}</div>
-          </div>`,
-        )
+          </div>`;
+        })
         .join("");
     } catch {
       appList.innerHTML = '<p class="status err">Could not load applications.</p>';

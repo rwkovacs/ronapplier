@@ -7,7 +7,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "process": "node scripts/process-jobs.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",

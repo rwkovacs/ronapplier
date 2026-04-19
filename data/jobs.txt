@@ -1,0 +1,8 @@
+# One job URL per line. Blank lines and lines starting with # are ignored.
+# Run: npm run process
+#
+# Tips:
+# - Paste the direct job-posting URL (not a search-results page).
+# - LinkedIn/Indeed URLs may return a login wall. If fetch fails, use the
+#   company's careers page URL instead (Greenhouse, Lever, Ashby, etc.).
+# - Already-processed URLs are skipped automatically on re-runs.

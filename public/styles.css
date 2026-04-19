@@ -305,6 +305,21 @@ textarea {
   color: var(--muted);
   font-size: 13px;
 }
+.link-btn {
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+.link-btn:hover {
+  text-decoration: underline;
+}
+.draft-panel {
+  margin-top: 4px;
+}
 
 .hint {
   color: var(--muted);
