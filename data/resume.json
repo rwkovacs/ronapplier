@@ -1,0 +1,65 @@
+{
+  "name": "Ronald Kovacs",
+  "title": "Full-Stack Software Developer",
+  "location": "Palm Beach, FL 33401",
+  "phone": "(954) 644-2837",
+  "email": "rwkovacs6@gmail.com",
+  "languages": ["English (Fluent)", "Spanish (Fluent)"],
+  "summary": "Software Engineer experienced in building and deploying solutions using the MEAN / MERN stack. Well versed in Scrum / Agile / Waterfall development models, with the ability to work in large teams using GitHub / Jenkins. Full Stack Developer with strong command of JavaScript, C/C++, and Java. Proficient in building applications with Angular v6, 8, 10, 13, 14, React, MongoDB, Node.js, .NET, writing server-side code, building APIs, and manipulating SQL & NoSQL databases. Solid understanding of authentication, security, and version control.",
+  "skills": {
+    "Languages": ["JavaScript", "Python", "C/C++", "Java", "Matlab", "Django", "HTML5", "CSS (Bulma, Bootstrap, Semantic UI, Materialize, Sass, CSS3)"],
+    "JavaScript Stack": ["TypeScript", "React", "Angular", "Redux", "RxJS", "NgRx", "Node.js", "Express.js", "Next.js", ".NET"],
+    "Databases": ["MySQL", "MS SQL Server", "Oracle SQL", "MongoDB", "Cassandra", "DynamoDB"],
+    "Dev Tools": ["Git", "GitLab", "GraphQL", "Jenkins"],
+    "Servers": ["Distributed Linux Systems", "SSH", "FTP", "PuTTY", "Screen", "Tmux", "Debian", "CentOS", "Ubuntu", "Apache", "Nginx"],
+    "Cloud": ["AWS", "Atlas", "GCP"]
+  },
+  "education": [
+    {
+      "school": "Florida International University",
+      "degree": "Bachelor's in Public Administration",
+      "dates": "August 2012 – May 2015"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Accela, Inc.",
+      "title": "Software Engineer",
+      "location": "Remote",
+      "dates": "Jun 2021 – Current",
+      "bullets": [
+        "Developed responsive, user-friendly web applications using React and Node.js.",
+        "Built cloud-based solutions with AWS: S3, Lambda, API Gateway, DynamoDB, and RDS.",
+        "Created and consumed RESTful endpoints with React Query and Express.js using MongoDB.",
+        "Enhanced performance in a cloud-based permitting system with scripting and configuration.",
+        "Used Azure services like SQL Database, Data Factory, and Azure Functions for scalable solutions.",
+        "Optimized complex SQL queries and implemented stored procedures, triggers, and views.",
+        "Led Agile/Scrum ceremonies and managed sprints.",
+        "Managed MongoDB databases for partner application development.",
+        "Worked with QA and DevOps to ensure feature quality and deployment through CI pipelines.",
+        "Built .NET middleware endpoints using C# and served JSON responses and views.",
+        "Led client intake meetings to align technical solutions with business goals."
+      ]
+    },
+    {
+      "company": "City of Fort Lauderdale",
+      "title": "Software Engineer",
+      "location": "Fort Lauderdale, FL",
+      "dates": "Nov 2016 – Jun 2021",
+      "bullets": [
+        "Built Angular components and used Angular Material for accessible UI.",
+        "Used TypeScript and Angular for database monitoring and management applications.",
+        "Implemented CI/CD pipelines for full-stack integration.",
+        "Built scalable solutions with JavaScript, TypeScript, GraphQL, Python, and SQL.",
+        "Created single-page apps using Angular HTTP and RxJS.",
+        "Maintained legacy code, fixed bugs, and documented development thoroughly.",
+        "Integrated OAUTH2 and JWT for secure API interaction.",
+        "Collaborated with DevOps to implement containerization, CI/CD, and monitoring.",
+        "Used GitLab for source control and workflow management.",
+        "Improved decision-making via front-end data visualization and back-end processing.",
+        "Streamlined state management using Redux.",
+        "Leveraged GraphQL for efficient data retrieval."
+      ]
+    }
+  ]
+}

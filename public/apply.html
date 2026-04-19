@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apply helper — Ronald Kovacs</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="nav-brand">Ronald Kovacs</div>
+        <div class="nav-links">
+          <a href="/">Resume</a>
+          <a href="/apply.html" class="active">Apply helper</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header class="header">
+        <h1>Apply helper</h1>
+        <p class="title">
+          Paste a job description, get a tailored cover letter and a
+          hiring-manager outreach email. Review before sending.
+        </p>
+      </header>
+
+      <form id="draft-form" class="form-grid" autocomplete="off">
+        <div class="row-2">
+          <div>
+            <label for="company">Company</label>
+            <input id="company" name="company" required />
+          </div>
+          <div>
+            <label for="role">Role</label>
+            <input id="role" name="role" required />
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <label for="jobUrl">Job URL (optional)</label>
+            <input id="jobUrl" name="jobUrl" type="url" />
+          </div>
+          <div>
+            <label for="hiringManager">Hiring manager (optional)</label>
+            <input id="hiringManager" name="hiringManager" />
+          </div>
+        </div>
+
+        <div>
+          <label for="jobDescription">Job description</label>
+          <textarea
+            id="jobDescription"
+            name="jobDescription"
+            required
+            placeholder="Paste the full posting here."
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="extraContext">Anything else to mention? (optional)</label>
+          <textarea
+            id="extraContext"
+            name="extraContext"
+            placeholder="e.g. you're excited about their approach to X, or you have a mutual contact (only mention real ones)."
+            style="min-height: 80px"
+          ></textarea>
+          <p class="hint">
+            Only add things that are true. The model is instructed not to
+            invent mutual connections or experience Ron doesn't have.
+          </p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" id="draft-btn" type="submit">Draft materials</button>
+          <button class="btn btn-secondary" id="log-btn" type="button" disabled>
+            Log this application
+          </button>
+        </div>
+
+        <p class="status" id="status"></p>
+      </form>
+
+      <div class="output" id="output" hidden>
+        <div class="card">
+          <h3>Cover letter</h3>
+          <pre id="cover-letter"></pre>
+          <div class="card-actions">
+            <button class="btn btn-secondary" data-copy="cover-letter">Copy</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Outreach email</h3>
+          <pre id="outreach-email"></pre>
+          <div class="card-actions">
+            <button class="btn btn-secondary" data-copy="outreach-email">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="tracker">
+        <h2 style="font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 6px;">
+          Logged applications
+        </h2>
+        <div id="app-list"><p class="status">Loading…</p></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ronald Kovacs — Full-Stack Software Developer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="nav-brand">Ronald Kovacs</div>
+        <div class="nav-links">
+          <a href="/" class="active">Resume</a>
+          <a href="/apply.html">Apply helper</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container" id="resume-root">
+      <p class="status">Loading…</p>
+    </main>
+
+    <script>
+      (async () => {
+        const root = document.getElementById("resume-root");
+        try {
+          const r = await fetch("/api/resume").then((res) => res.json());
+          root.innerHTML = render(r);
+        } catch (err) {
+          root.innerHTML =
+            '<p class="status err">Could not load resume: ' +
+            escapeHtml(String(err)) +
+            "</p>";
+        }
+
+        function render(r) {
+          const contact = [
+            r.location,
+            r.phone,
+            `<a href="mailto:${escapeHtml(r.email)}">${escapeHtml(r.email)}</a>`,
+            (r.languages || []).join(" / "),
+          ]
+            .filter(Boolean)
+            .map((c) => `<span>${c}</span>`)
+            .join("");
+
+          const skills = Object.entries(r.skills || {})
+            .map(
+              ([group, items]) => `
+              <div class="skill-group">
+                <span class="skill-group-name">${escapeHtml(group)}</span>
+                ${escapeHtml(items.join(", "))}
+              </div>`,
+            )
+            .join("");
+
+          const experience = (r.experience || [])
+            .map(
+              (job) => `
+              <div class="job">
+                <div class="job-head">
+                  <div>
+                    <span class="job-title">${escapeHtml(job.title)}</span>
+                    <span class="job-company"> — ${escapeHtml(job.company)} · ${escapeHtml(job.location)}</span>
+                  </div>
+                  <div class="job-dates">${escapeHtml(job.dates)}</div>
+                </div>
+                <ul>
+                  ${(job.bullets || []).map((b) => `<li>${escapeHtml(b)}</li>`).join("")}
+                </ul>
+              </div>`,
+            )
+            .join("");
+
+          const education = (r.education || [])
+            .map(
+              (e) => `
+              <div class="edu-item">
+                <div><strong>${escapeHtml(e.degree)}</strong> — ${escapeHtml(e.school)}</div>
+                <div class="edu-dates">${escapeHtml(e.dates)}</div>
+              </div>`,
+            )
+            .join("");
+
+          return `
+            <header class="header">
+              <h1>${escapeHtml(r.name)}</h1>
+              <p class="title">${escapeHtml(r.title)}</p>
+              <div class="contact">${contact}</div>
+            </header>
+
+            <section>
+              <h2>Summary</h2>
+              <p class="summary">${escapeHtml(r.summary)}</p>
+            </section>
+
+            <section>
+              <h2>Skills</h2>
+              ${skills}
+            </section>
+
+            <section>
+              <h2>Experience</h2>
+              ${experience}
+            </section>
+
+            <section>
+              <h2>Education</h2>
+              ${education}
+            </section>
+          `;
+        }
+
+        function escapeHtml(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+        }
+      })();
+    </script>
+  </body>
+</html>
