@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const Anthropic = require("@anthropic-ai/sdk").default;
 const { loadResume, draftMaterials } = require("./lib/drafter");
+const { autofill } = require("./lib/autofill");
 
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, "data");
@@ -80,6 +81,44 @@ app.post("/api/draft", async (req, res) => {
       .status(500)
       .json({ error: String(err && err.message ? err.message : err) });
   }
+});
+
+app.post("/api/autofill", async (req, res) => {
+  const { applicationId, url, autoSubmit } = req.body || {};
+  if (!applicationId && !url) {
+    return res.status(400).json({ error: "applicationId or url is required" });
+  }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return res.status(500).json({ error: "ANTHROPIC_API_KEY is not set." });
+  }
+
+  let target = url;
+  let jobContext = null;
+  if (applicationId) {
+    const app = readApplications().find((a) => a.id === applicationId);
+    if (!app) return res.status(404).json({ error: "application not found" });
+    if (!app.jobUrl) return res.status(400).json({ error: "application has no jobUrl" });
+    target = app.jobUrl;
+    jobContext = {
+      company: app.company,
+      role: app.role,
+      jobDescription: app.jobDescription,
+    };
+  }
+
+  // Launch browser async — respond immediately so the UI doesn't hang.
+  // The browser window stays open for Ron to review and submit manually.
+  autofill({ url: target, jobContext, headless: false, autoSubmit: !!autoSubmit })
+    .then((result) => {
+      console.log(
+        `autofill done: ${result.filled}/${result.total || "?"} (${result.platform})`,
+      );
+    })
+    .catch((err) => {
+      console.error("autofill error:", err.message);
+    });
+
+  res.json({ launched: true, url: target });
 });
 
 app.listen(PORT, () => {

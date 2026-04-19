@@ -65,7 +65,7 @@
     }
   });
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", async (e) => {
     const copyBtn = e.target.closest("[data-copy]");
     if (copyBtn) {
       const selector = copyBtn.dataset.copy;
@@ -92,6 +92,33 @@
       if (hidden) panel.removeAttribute("hidden");
       else panel.setAttribute("hidden", "");
       toggle.textContent = hidden ? "Hide" : "View drafts";
+      return;
+    }
+
+    const apply = e.target.closest("[data-apply]");
+    if (apply) {
+      const id = apply.dataset.apply;
+      apply.disabled = true;
+      const prev = apply.textContent;
+      apply.textContent = "Launching…";
+      try {
+        const res = await fetch("/api/autofill", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ applicationId: id }),
+        });
+        const payload = await res.json();
+        if (!res.ok) throw new Error(payload.error || `HTTP ${res.status}`);
+        apply.textContent = "Browser opened";
+        setStatus(
+          "Browser window launched — review fields and submit manually.",
+          "ok",
+        );
+      } catch (err) {
+        apply.textContent = prev;
+        apply.disabled = false;
+        setStatus("Launch failed: " + err.message, "err");
+      }
     }
   });
 
@@ -121,6 +148,7 @@
                 ${a.jobUrl ? `<a href="${escapeAttr(a.jobUrl)}" target="_blank" rel="noopener">Posting</a> · ` : ""}
                 ${escapeHtml(new Date(a.createdAt).toLocaleString())}
                 ${hasDrafts ? ` · <button class="link-btn" data-toggle="${panelId}">View drafts</button>` : ""}
+                ${a.jobUrl ? ` · <button class="link-btn" data-apply="${escapeAttr(a.id)}">Launch autofill</button>` : ""}
               </div>
               ${
                 hasDrafts

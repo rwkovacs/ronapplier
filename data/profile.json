@@ -1,0 +1,38 @@
+{
+  "firstName": "Ronald",
+  "lastName": "Kovacs",
+  "preferredName": "Ron",
+  "email": "rwkovacs6@gmail.com",
+  "phone": "+1 954 644 2837",
+  "location": "Palm Beach, FL",
+  "city": "Palm Beach",
+  "state": "FL",
+  "country": "United States",
+  "postalCode": "33401",
+  "linkedin": "",
+  "github": "",
+  "portfolio": "",
+  "resumePath": "./data/resume.pdf",
+  "coverLetterPath": null,
+  "workAuthorization": {
+    "authorizedToWorkUS": true,
+    "requiresSponsorship": false
+  },
+  "eeoc": {
+    "gender": "Decline to self-identify",
+    "race": "Decline to self-identify",
+    "hispanicLatino": "Decline to self-identify",
+    "veteranStatus": "I don't wish to answer",
+    "disability": "I don't wish to answer"
+  },
+  "salary": {
+    "expected": null,
+    "minimum": null,
+    "currency": "USD"
+  },
+  "noticePeriod": "2 weeks",
+  "availableStartDate": "2 weeks from offer",
+  "willingToRelocate": false,
+  "remoteOk": true,
+  "howDidYouHear": "Company careers page"
+}

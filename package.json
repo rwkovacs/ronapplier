@@ -8,11 +8,13 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "process": "node scripts/process-jobs.js"
+    "process": "node scripts/process-jobs.js",
+    "apply": "node scripts/autofill.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "playwright": "^1.59.1"
   },
   "engines": {
     "node": ">=18"
