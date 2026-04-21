@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #171a21;
+        color: #e7ebf1;
+        margin: 0;
+        padding: 14px 16px;
+        width: 280px;
+        font-size: 13.5px;
+      }
+      h1 {
+        font-size: 14px;
+        margin: 0 0 6px;
+      }
+      .sub {
+        color: #9aa3b2;
+        margin: 0 0 12px;
+        font-size: 12px;
+      }
+      button {
+        background: #4a9eff;
+        color: #04121f;
+        border: 0;
+        padding: 9px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: inherit;
+        font-size: 13.5px;
+        width: 100%;
+      }
+      button:hover {
+        background: #7cc4ff;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+      .hint {
+        color: #9aa3b2;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+      .status {
+        margin-top: 10px;
+        font-size: 12.5px;
+      }
+      .ok {
+        color: #7ddc9e;
+      }
+      .err {
+        color: #ff7a7a;
+      }
+      a {
+        color: #7cc4ff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ronapplier</h1>
+    <p class="sub" id="server-status">Checking local server…</p>
+    <button id="fill">⚡ Autofill this page</button>
+    <p class="hint">
+      Or use the floating button on the page. Needs the ronapplier server
+      running at <code>localhost:3000</code>.
+    </p>
+    <p class="status" id="status"></p>
+    <script src="popup.js"></script>
+  </body>
+</html>

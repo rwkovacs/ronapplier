@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "ronapplier",
+  "version": "0.1.0",
+  "description": "Autofill job applications using your local ronapplier server (Claude + your resume/profile).",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://boards.greenhouse.io/*",
+    "https://*.greenhouse.io/*",
+    "https://job-boards.greenhouse.io/*",
+    "https://jobs.lever.co/*",
+    "https://*.lever.co/*",
+    "https://jobs.ashbyhq.com/*",
+    "https://*.ashbyhq.com/*",
+    "https://hiring.cafe/*",
+    "https://*.hiring.cafe/*",
+    "https://*.myworkdayjobs.com/*",
+    "https://*.icims.com/*",
+    "https://*.smartrecruiters.com/*",
+    "https://apply.workable.com/*",
+    "https://boards.eu.greenhouse.io/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ronapplier"
+  }
+}
